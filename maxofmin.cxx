@@ -5,16 +5,13 @@ using namespace std;
 
 void solve(int N, int V[])
 {
-
-  int sol[N];
   int dim_subsq = 1;
-  int maxofmin;
+  int sol[N];
   int indice = 0;
-  int min;
-
   while (dim_subsq <= N)
   {
-
+    int maxofmin;
+    int min;
     int minimi[N - dim_subsq + 1];
 
     for (int i = 0; i <= N - dim_subsq; i++)
@@ -26,31 +23,34 @@ void solve(int N, int V[])
 
       minimi[i] = min;
     }
+
+    maxofmin = minimi[0];
+
+    for (int i = 1; i < N - dim_subsq + 1; i++)
+    {
+      if (maxofmin < minimi[i])
+      {
+        maxofmin = minimi[i];
+      }
+    }
+
+    sol[indice] = maxofmin;
+    indice++;
+    dim_subsq++;
   }
-}
 
-maxofmin = minimi[0];
-
-for (int i = 1; i < N - dim_subsq + 1; i++)
-  if (maxofmin < minimi[i])
-    maxofmin = minimi[i];
-
-sol[indice] = maxofmin;
-indice++;
-dim_subsq++;
-
-for (int i = 0; i < N; i++)
-{
-  std::cout << sol[i];
-  if (i < N - 1)
+  for (int i = 0; i < N; i++)
   {
-    std::cout << " ";
+    std::cout << sol[i];
+    if (i < N - 1)
+    {
+      std::cout << " ";
+    }
+    else
+    {
+      std::cout << std::endl;
+    }
   }
-  else
-  {
-    std::cout << std::endl;
-  }
-}
 }
 
 int main()
@@ -59,7 +59,7 @@ int main()
   cin >> N;
   int V[N];
   for (int i = 0; i < N; i++)
-    V[i] = rand();
+    cin >> V[i];
   solve(N, V);
   return 0;
 }
